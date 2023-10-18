@@ -51,10 +51,8 @@ drivers:
 	../misc/yas ldriver.ys
 
 # These are implicit rules for assembling .yo files from .ys files.
-.SUFFIXES: .ys .yo
-.ys.yo:
-	$(YAS) $*.ys
-
+ys2yo:
+	$(YAS) *.ys
 
 clean:
 	rm -f psim pipe-*.c *.o *.exe *~ 
