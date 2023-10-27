@@ -167,11 +167,14 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-	int lock = x + 1; 
-	int u = !(lock + lock);
-	/* int ans = u & (!!lock); */
-	/* printf("0x%x %x %x ans: %x\n", x, u, tag, ans ); */
-	return x == 0x7fffffff ? 1 : 0;
+  //判断想x+x+1取反后是否为0
+  int tag = x + 1;
+  int tmp1 = ~(x + tag);
+  int flag1 = !tmp1;
+  //判断是否为-1
+  int flag2 = !tag;
+  //产生结果后
+  return flag1 & !flag2;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -182,11 +185,12 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-	int t = 0xAA | (0xAA << 8) | (0xAA << 16) | (0xAA << 24);
-	int temp = x & t;
-	int y = temp >> 1  ;
-	int z = temp | y;
-  return !(z + 1);
+  int t = 0xaa | (0xaa << 8) | (0xaa << 16) | (0xaa << 24);
+  int a = x & t;
+  int b = a >> 1;
+  int c = a | b;
+  int ans = !(c + 1);
+  return ans;
 }
 /* 
  * negate - return -x 
@@ -209,11 +213,10 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-	int high= (x >> 4) & 0x0F;
-	high = !(high ^ 0x03);
-	int m = (x) & 0x0f;
-	int low = !(x >> 8) &((!(m >> 3)) | !(m ^ 0x08) | !(m ^ 0x09));
-	return high & low;
+  int flag1 = !((x & 0xa) ^ 0xa);
+  int flag2 = !((x & 0xc) ^ 0xc);
+  int flag3 = ((x >> 4) ^ 3);
+  return !(flag1 | flag2 | flag3);
 }
 /* 
  * conditional - same as x ? y : z 
@@ -223,9 +226,9 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-	int x1 = !!x;
-	int tag = !x1 + ~0;
-	return tag&y | (~tag)&z;
+  int neg = ~0;
+  int mask = !!x + neg;
+  return (y & ~mask) | (z & mask);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -235,16 +238,17 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-	int flag_x = x >> 31;
-	int flag_y = y >> 31;
-	int tag1 = !(flag_x ^ flag_y);
-	int tag2 = ((x + ~y + 1) >> 31) ^ 0;
-	tag2 = !!tag2;
-	int tag3 = !(x ^ y);
-	int A = tag2 | tag3;
-	int B = !((y >>31) ^ 0) ;
-	return tag1 & A | !tag1 & B;
+  //符号位
+  int s1 = x >> 31;
+  int s2 = y >> 31;
+  //s1 == s2 ? 1 : 0
+  int mask = !(s1 ^ s2);
+  // y - x
+  int diff = y + (~x) + 1;
+  // y - x >= 0 ? 1 : 0
+  int flag2 = !(diff >> 31);
 
+  return (mask & flag2) | ((!mask) & (s1 & 1));
 }
 //4
 /* 
@@ -256,9 +260,9 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
-	int flag = (x << 1) ^ x;
-
-  return flag ^ 1;
+  int tag = x | (~x + 1);
+  int s = tag >> 31;
+  return s + 1;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
@@ -273,7 +277,32 @@ int logicalNeg(int x) {
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+  //mask = x < 0 ? 0xfffffffff : 0
+  int mask, y, tag16, tag8, tag4, tag2, tag1, has16bit, has8bit, has4bit, has2bit, has1bit;
+  mask = (x >> 31);
+  //为负数去反
+  y = (mask & (~x)) | ((~mask) & x);
+  //判断是否满足16+1位 ? 1 : 0
+  tag16 = !!(y >> 16);
+  has16bit = tag16 << 4;
+  y = y >> has16bit;
+  //判断是否满足8位 ? 1 : 0
+  tag8 = !!(y >> 8);
+  has8bit = (tag8 << 3);
+  y = y >> has8bit;
+  //判断是否满足4位 ? 1 : 0
+  tag4 = !!(y >> 4);
+  has4bit = tag4 << 2;
+  y = y >> has4bit;
+  //判断是否满足2位 ? 1 : 0
+  tag2 = !!(y >> 2);
+  has2bit = tag2 << 1;
+  y = y >> has2bit;
+  //判断是否满足1位 ? 1 : 0
+  tag1 = !!(y >> 1);
+  has1bit = tag1 << 1;
+  y = y >> has1bit;
+  return has16bit + has8bit + has4bit + has2bit + has1bit + y + 1;
 }
 //float
 /* 
@@ -288,7 +317,25 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
-  return 2;
+  unsigned s, M, E, ans;
+  //分解出s, m, e
+  s = uf >> 31;
+  M = (uf >> 23) & (0xff);
+  E = uf & (0x7fffff);
+  
+  if(M == 0xff){ // NaN、Infinity的情况
+    return uf;
+  }else if(M == 0){ //非规格化的情况
+    E = E << 1;
+    if(E > 0x7fffff){ // 判断是否会变成规格化
+      M = M + 1;
+      E = E - 0x800000;
+    }
+  }else{ //规格化的情况
+    M = M + 1;
+  }
+  ans = (s<<31) | (M << 23) | E;
+  return ans;
 }
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
@@ -303,7 +350,30 @@ unsigned floatScale2(unsigned uf) {
  *   Rating: 4
  */
 int floatFloat2Int(unsigned uf) {
-  return 2;
+  unsigned s, M, E ;
+  int ans, a;
+  //分解出s, M, E
+  s = uf >> 31;
+  M = (uf >> 23) & (0xff);
+  E = uf & (0x7fffff);
+  a = M - 127; //a表示实际的阶数
+
+  if(M == 0xff){ // NaN、Infinity的情况
+    return 0x80000000u;
+  }else if(M == 0){ //非规格化的情况
+    ans = 0;
+  }else if(a < 0){ //规格化的情况
+    ans = 0;
+  }else if (a <= 23){
+    ans = (E >> (23 - a)) + (1 << a);
+    // printf("0x%x %d %d\n",uf, ans, a+1);
+  }else{
+    return 0x80000000u;
+  }
+  if(s){
+     ans = -ans;
+  }
+  return ans;
 }
 /* 
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
@@ -319,5 +389,16 @@ int floatFloat2Int(unsigned uf) {
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
-    return 2;
+  unsigned  ans; 
+  int M = x + 127;
+  if(M > 0xff){
+    ans = 0x7f800000;
+  }else if(M  > 0){
+    ans = M << 23;
+  }else if(M > -23){
+    ans = 1 << (M + 22);
+  }else{
+    ans = 0;
+  }
+  return ans;
 }
