@@ -1,157 +1,6 @@
 
 bomb:     file format elf64-x86-64
 
-
-Disassembly of section .init:
-
-0000000000400ac0 <_init>:
-  400ac0:	48 83 ec 08          	sub    $0x8,%rsp
-  400ac4:	e8 f3 01 00 00       	call   400cbc <call_gmon_start>
-  400ac9:	48 83 c4 08          	add    $0x8,%rsp
-  400acd:	c3                   	ret
-
-Disassembly of section .plt:
-
-0000000000400ad0 <.plt>:
-  400ad0:	ff 35 1a 25 20 00    	push   0x20251a(%rip)        # 602ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
-  400ad6:	ff 25 1c 25 20 00    	jmp    *0x20251c(%rip)        # 602ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
-  400adc:	0f 1f 40 00          	nopl   0x0(%rax)
-
-0000000000400ae0 <getenv@plt>:
-  400ae0:	ff 25 1a 25 20 00    	jmp    *0x20251a(%rip)        # 603000 <getenv@GLIBC_2.2.5>
-  400ae6:	68 00 00 00 00       	push   $0x0
-  400aeb:	e9 e0 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400af0 <__errno_location@plt>:
-  400af0:	ff 25 12 25 20 00    	jmp    *0x202512(%rip)        # 603008 <__errno_location@GLIBC_2.2.5>
-  400af6:	68 01 00 00 00       	push   $0x1
-  400afb:	e9 d0 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b00 <strcpy@plt>:
-  400b00:	ff 25 0a 25 20 00    	jmp    *0x20250a(%rip)        # 603010 <strcpy@GLIBC_2.2.5>
-  400b06:	68 02 00 00 00       	push   $0x2
-  400b0b:	e9 c0 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b10 <puts@plt>:
-  400b10:	ff 25 02 25 20 00    	jmp    *0x202502(%rip)        # 603018 <puts@GLIBC_2.2.5>
-  400b16:	68 03 00 00 00       	push   $0x3
-  400b1b:	e9 b0 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b20 <write@plt>:
-  400b20:	ff 25 fa 24 20 00    	jmp    *0x2024fa(%rip)        # 603020 <write@GLIBC_2.2.5>
-  400b26:	68 04 00 00 00       	push   $0x4
-  400b2b:	e9 a0 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b30 <__stack_chk_fail@plt>:
-  400b30:	ff 25 f2 24 20 00    	jmp    *0x2024f2(%rip)        # 603028 <__stack_chk_fail@GLIBC_2.4>
-  400b36:	68 05 00 00 00       	push   $0x5
-  400b3b:	e9 90 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b40 <alarm@plt>:
-  400b40:	ff 25 ea 24 20 00    	jmp    *0x2024ea(%rip)        # 603030 <alarm@GLIBC_2.2.5>
-  400b46:	68 06 00 00 00       	push   $0x6
-  400b4b:	e9 80 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b50 <close@plt>:
-  400b50:	ff 25 e2 24 20 00    	jmp    *0x2024e2(%rip)        # 603038 <close@GLIBC_2.2.5>
-  400b56:	68 07 00 00 00       	push   $0x7
-  400b5b:	e9 70 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b60 <read@plt>:
-  400b60:	ff 25 da 24 20 00    	jmp    *0x2024da(%rip)        # 603040 <read@GLIBC_2.2.5>
-  400b66:	68 08 00 00 00       	push   $0x8
-  400b6b:	e9 60 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b70 <__libc_start_main@plt>:
-  400b70:	ff 25 d2 24 20 00    	jmp    *0x2024d2(%rip)        # 603048 <__libc_start_main@GLIBC_2.2.5>
-  400b76:	68 09 00 00 00       	push   $0x9
-  400b7b:	e9 50 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b80 <fgets@plt>:
-  400b80:	ff 25 ca 24 20 00    	jmp    *0x2024ca(%rip)        # 603050 <fgets@GLIBC_2.2.5>
-  400b86:	68 0a 00 00 00       	push   $0xa
-  400b8b:	e9 40 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400b90 <signal@plt>:
-  400b90:	ff 25 c2 24 20 00    	jmp    *0x2024c2(%rip)        # 603058 <signal@GLIBC_2.2.5>
-  400b96:	68 0b 00 00 00       	push   $0xb
-  400b9b:	e9 30 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400ba0 <gethostbyname@plt>:
-  400ba0:	ff 25 ba 24 20 00    	jmp    *0x2024ba(%rip)        # 603060 <gethostbyname@GLIBC_2.2.5>
-  400ba6:	68 0c 00 00 00       	push   $0xc
-  400bab:	e9 20 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400bb0 <__memmove_chk@plt>:
-  400bb0:	ff 25 b2 24 20 00    	jmp    *0x2024b2(%rip)        # 603068 <__memmove_chk@GLIBC_2.3.4>
-  400bb6:	68 0d 00 00 00       	push   $0xd
-  400bbb:	e9 10 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400bc0 <__memcpy_chk@plt>:
-  400bc0:	ff 25 aa 24 20 00    	jmp    *0x2024aa(%rip)        # 603070 <__memcpy_chk@GLIBC_2.3.4>
-  400bc6:	68 0e 00 00 00       	push   $0xe
-  400bcb:	e9 00 ff ff ff       	jmp    400ad0 <.plt>
-
-0000000000400bd0 <strtol@plt>:
-  400bd0:	ff 25 a2 24 20 00    	jmp    *0x2024a2(%rip)        # 603078 <strtol@GLIBC_2.2.5>
-  400bd6:	68 0f 00 00 00       	push   $0xf
-  400bdb:	e9 f0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400be0 <fflush@plt>:
-  400be0:	ff 25 9a 24 20 00    	jmp    *0x20249a(%rip)        # 603080 <fflush@GLIBC_2.2.5>
-  400be6:	68 10 00 00 00       	push   $0x10
-  400beb:	e9 e0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400bf0 <__isoc99_sscanf@plt>:
-  400bf0:	ff 25 92 24 20 00    	jmp    *0x202492(%rip)        # 603088 <__isoc99_sscanf@GLIBC_2.7>
-  400bf6:	68 11 00 00 00       	push   $0x11
-  400bfb:	e9 d0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c00 <__printf_chk@plt>:
-  400c00:	ff 25 8a 24 20 00    	jmp    *0x20248a(%rip)        # 603090 <__printf_chk@GLIBC_2.3.4>
-  400c06:	68 12 00 00 00       	push   $0x12
-  400c0b:	e9 c0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c10 <fopen@plt>:
-  400c10:	ff 25 82 24 20 00    	jmp    *0x202482(%rip)        # 603098 <fopen@GLIBC_2.2.5>
-  400c16:	68 13 00 00 00       	push   $0x13
-  400c1b:	e9 b0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c20 <exit@plt>:
-  400c20:	ff 25 7a 24 20 00    	jmp    *0x20247a(%rip)        # 6030a0 <exit@GLIBC_2.2.5>
-  400c26:	68 14 00 00 00       	push   $0x14
-  400c2b:	e9 a0 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c30 <connect@plt>:
-  400c30:	ff 25 72 24 20 00    	jmp    *0x202472(%rip)        # 6030a8 <connect@GLIBC_2.2.5>
-  400c36:	68 15 00 00 00       	push   $0x15
-  400c3b:	e9 90 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c40 <__fprintf_chk@plt>:
-  400c40:	ff 25 6a 24 20 00    	jmp    *0x20246a(%rip)        # 6030b0 <__fprintf_chk@GLIBC_2.3.4>
-  400c46:	68 16 00 00 00       	push   $0x16
-  400c4b:	e9 80 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c50 <sleep@plt>:
-  400c50:	ff 25 62 24 20 00    	jmp    *0x202462(%rip)        # 6030b8 <sleep@GLIBC_2.2.5>
-  400c56:	68 17 00 00 00       	push   $0x17
-  400c5b:	e9 70 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c60 <__ctype_b_loc@plt>:
-  400c60:	ff 25 5a 24 20 00    	jmp    *0x20245a(%rip)        # 6030c0 <__ctype_b_loc@GLIBC_2.3>
-  400c66:	68 18 00 00 00       	push   $0x18
-  400c6b:	e9 60 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c70 <__sprintf_chk@plt>:
-  400c70:	ff 25 52 24 20 00    	jmp    *0x202452(%rip)        # 6030c8 <__sprintf_chk@GLIBC_2.3.4>
-  400c76:	68 19 00 00 00       	push   $0x19
-  400c7b:	e9 50 fe ff ff       	jmp    400ad0 <.plt>
-
-0000000000400c80 <socket@plt>:
-  400c80:	ff 25 4a 24 20 00    	jmp    *0x20244a(%rip)        # 6030d0 <socket@GLIBC_2.2.5>
-  400c86:	68 1a 00 00 00       	push   $0x1a
-  400c8b:	e9 40 fe ff ff       	jmp    400ad0 <.plt>
-
 Disassembly of section .text:
 
 0000000000400c90 <_start>:
@@ -520,6 +369,7 @@ Disassembly of section .text:
   401106:	e8 51 03 00 00       	call   40145c <read_six_numbers>
   40110b:	49 89 e6             	mov    %rsp,%r14
   40110e:	41 bc 00 00 00 00    	mov    $0x0,%r12d
+
   401114:	4c 89 ed             	mov    %r13,%rbp
   401117:	41 8b 45 00          	mov    0x0(%r13),%eax
   40111b:	83 e8 01             	sub    $0x1,%eax
@@ -540,6 +390,7 @@ Disassembly of section .text:
   40114b:	7e e8                	jle    401135 <phase_6+0x41>
   40114d:	49 83 c5 04          	add    $0x4,%r13
   401151:	eb c1                	jmp    401114 <phase_6+0x20>
+
   401153:	48 8d 74 24 18       	lea    0x18(%rsp),%rsi
   401158:	4c 89 f0             	mov    %r14,%rax
   40115b:	b9 07 00 00 00       	mov    $0x7,%ecx
@@ -549,6 +400,7 @@ Disassembly of section .text:
   401166:	48 83 c0 04          	add    $0x4,%rax
   40116a:	48 39 f0             	cmp    %rsi,%rax
   40116d:	75 f1                	jne    401160 <phase_6+0x6c>
+
   40116f:	be 00 00 00 00       	mov    $0x0,%esi
   401174:	eb 21                	jmp    401197 <phase_6+0xa3>
   401176:	48 8b 52 08          	mov    0x8(%rdx),%rdx
@@ -567,6 +419,7 @@ Disassembly of section .text:
   40119f:	b8 01 00 00 00       	mov    $0x1,%eax
   4011a4:	ba d0 32 60 00       	mov    $0x6032d0,%edx
   4011a9:	eb cb                	jmp    401176 <phase_6+0x82>
+
   4011ab:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
   4011b0:	48 8d 44 24 28       	lea    0x28(%rsp),%rax
   4011b5:	48 8d 74 24 50       	lea    0x50(%rsp),%rsi
@@ -578,6 +431,7 @@ Disassembly of section .text:
   4011cb:	74 05                	je     4011d2 <phase_6+0xde>
   4011cd:	48 89 d1             	mov    %rdx,%rcx
   4011d0:	eb eb                	jmp    4011bd <phase_6+0xc9>
+
   4011d2:	48 c7 42 08 00 00 00 	movq   $0x0,0x8(%rdx)
   4011d9:	00 
   4011da:	bd 05 00 00 00       	mov    $0x5,%ebp
@@ -770,7 +624,7 @@ Disassembly of section .text:
   4013f2:	48 83 c4 08          	add    $0x8,%rsp
   4013f6:	5b                   	pop    %rbx
   4013f7:	5d                   	pop    %rbp
-  4013f8:	c3                   	ret
+  4013f8:	c3                   	ret                             
 
 00000000004013f9 <skip>:
   4013f9:	53                   	push   %rbx
@@ -1733,9 +1587,3 @@ Disassembly of section .text:
   4022a2:	90                   	nop
   4022a3:	90                   	nop
 
-Disassembly of section .fini:
-
-00000000004022a4 <_fini>:
-  4022a4:	48 83 ec 08          	sub    $0x8,%rsp
-  4022a8:	48 83 c4 08          	add    $0x8,%rsp
-  4022ac:	c3                   	ret
